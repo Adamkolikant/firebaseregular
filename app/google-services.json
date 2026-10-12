@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "617351246619",
+    "project_id": "adam-project-2027",
+    "storage_bucket": "adam-project-2027.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617351246619:android:91682b049a6c52fc7a19be",
+        "android_client_info": {
+          "package_name": "com.katza.adamproject20277"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvZcaVSjA7juJTfsrpy3UxOAX3S1cQW-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
