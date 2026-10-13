@@ -40,4 +40,13 @@ public class Student {
     public void setGrade(int grade) {
         this.grade = grade;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "fullName='" + fullName + '\'' +
+                ", id='" + id + '\'' +
+                ", grade=" + grade +
+                '}';
+    }
 }

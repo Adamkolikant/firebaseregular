@@ -10,6 +10,7 @@
         <EditText android:layout_width="300dp" android:layout_height="wrap_content" android:id="@+id/tz" android:gravity="center" android:hint="תעודת זהות"/>
         <EditText android:layout_width="300dp" android:layout_height="wrap_content" android:id="@+id/fullname" android:gravity="center" android:hint="שם מלא"/>
         <EditText android:layout_width="300dp" android:layout_height="wrap_content" android:id="@+id/grade" android:gravity="center" android:hint="ציון סופי"/>
+        
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
             <Button android:id="@+id/btnInsert" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="הוסף תלמיד"/>
             <Button android:id="@+id/btnSelect" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="הצג תלמידים"/>

@@ -12,13 +12,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     // הגדרת רכיבי ה-UI בהתאם ל-IDs ב-XML
     private EditText fullname, tz, grade;
-    private Button btnInsert;
-
-
+    private TextView tvcontent;
+    private Button btnInsert, btnSelect;
     private FirestoreDAO fsDAO;
 
     @Override
@@ -42,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         grade = findViewById(R.id.grade);
 
         btnInsert = findViewById(R.id.btnInsert);
-
-
+        btnSelect = findViewById(R.id.btnSelect);
+        tvcontent = findViewById(R.id.tvcontent);
 
         // מימוש כפתור ההוספה בדיוק לפי המבנה שביקשת
         btnInsert.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +55,23 @@ public class MainActivity extends AppCompatActivity {
                         tz.getText().toString(),
                         Integer.parseInt(grade.getText().toString())
                 );
+            }
+        });
+
+        btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvcontent.setText(""); // מנקה את התיבה לפני ההצגה
+
+                fsDAO.readAllDocuments(new IFirestoreCallback() {
+                    @Override
+                    public void OnDataReceiver(ArrayList<Student> students) {
+                        // Print to screen
+                        for (int i = 0; i < students.size(); i++) {
+                            tvcontent.setText(tvcontent.getText().toString() + students.get(i).toString() + "\n");
+                        }
+                    }
+                });
             }
         });
     }
