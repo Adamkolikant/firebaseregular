@@ -1,3 +1,4 @@
+
 package com.katza.adamproject20277;
 
 import android.util.Log;
@@ -18,17 +19,17 @@ import java.util.Map;
 
 public class FirestoreDAO {
 
-    public void createDocument(String name, String id, int grade) {
-        Map<String, Object> studentRecord = new HashMap<>();
-        studentRecord.put("fullName", name);
-        studentRecord.put("id", id);
-        studentRecord.put("grade", grade);
+    public void createDocument(String bookName, String author, String dateAdded) {
+        Map<String, Object> bookRecord = new HashMap<>();
+        bookRecord.put("bookName", bookName);
+        bookRecord.put("author", author);
+        bookRecord.put("dateAdded", dateAdded);
 
         DocumentReference docRef = FirebaseFirestore.getInstance()
-                .collection("ddd")
-                .document(id);
+                .collection("books")
+                .document();
 
-        docRef.set(studentRecord).addOnSuccessListener(new OnSuccessListener<Void>() {
+        docRef.set(bookRecord).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("DAO_FIREBASE", "SUCCESSFUL WRITE!");
@@ -43,18 +44,20 @@ public class FirestoreDAO {
 
     public void readDocumentById(String docID, IFirestoreCallback iFirestoreCallback) {
         DocumentReference docRef = FirebaseFirestore.getInstance()
-                .collection("ddd").document(docID);
+                .collection("books").document(docID);
 
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("DAO_FIREBASE", "onSuccess");
-                Student student = documentSnapshot.toObject(Student.class);
-                Log.d("DAO_FIREBASE", "Student:" + student);
+                Book book = documentSnapshot.toObject(Book.class);
+                Log.d("DAO_FIREBASE", "Book:" + book);
 
-                ArrayList<Student> students = new ArrayList<>();
-                students.add(student);
-                iFirestoreCallback.OnDataReceiver(students);
+                ArrayList<Book> books = new ArrayList<>();
+                if (book != null) {
+                    books.add(book);
+                }
+                iFirestoreCallback.OnDataReceiver(books);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -66,18 +69,20 @@ public class FirestoreDAO {
 
     public void readAllDocuments(IFirestoreCallback iFirestoreCallback) {
         CollectionReference colRef = FirebaseFirestore.getInstance()
-                .collection("ddd");
+                .collection("books");
 
         colRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                ArrayList<Student> students = new ArrayList<>();
+                ArrayList<Book> books = new ArrayList<>();
                 for (DocumentSnapshot docSS : queryDocumentSnapshots.getDocuments()) {
-                    Student student = docSS.toObject(Student.class);
-                    Log.d("DAO_FIREBASE", "Student:" + student);
-                    students.add(student);
+                    Book book = docSS.toObject(Book.class);
+                    Log.d("DAO_FIREBASE", "Book:" + book);
+                    if (book != null) {
+                        books.add(book);
+                    }
                 }
-                iFirestoreCallback.OnDataReceiver(students);
+                iFirestoreCallback.OnDataReceiver(books);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -1,3 +1,4 @@
+
 package com.katza.adamproject20277;
 
 import android.os.Bundle;
@@ -16,8 +17,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    // הגדרת רכיבי ה-UI בהתאם ל-IDs ב-XML
-    private EditText fullname, tz, grade;
+    private EditText bookName, author, dateAdded;
     private TextView tvcontent;
     private Button btnInsert, btnSelect;
     private FirestoreDAO fsDAO;
@@ -34,26 +34,23 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // אתחול ה-DAO
         fsDAO = new FirestoreDAO();
 
-        // קישור רכיבים מה-XML
-        fullname = findViewById(R.id.fullname);
-        tz = findViewById(R.id.tz);
-        grade = findViewById(R.id.grade);
+        bookName = findViewById(R.id.bookName);
+        author = findViewById(R.id.author);
+        dateAdded = findViewById(R.id.dateAdded);
 
         btnInsert = findViewById(R.id.btnInsert);
         btnSelect = findViewById(R.id.btnSelect);
         tvcontent = findViewById(R.id.tvcontent);
 
-        // מימוש כפתור ההוספה בדיוק לפי המבנה שביקשת
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fsDAO.createDocument(
-                        fullname.getText().toString(),
-                        tz.getText().toString(),
-                        Integer.parseInt(grade.getText().toString())
+                        bookName.getText().toString(),
+                        author.getText().toString(),
+                        dateAdded.getText().toString()
                 );
             }
         });
@@ -61,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvcontent.setText(""); // מנקה את התיבה לפני ההצגה
+                tvcontent.setText("");
 
                 fsDAO.readAllDocuments(new IFirestoreCallback() {
                     @Override
-                    public void OnDataReceiver(ArrayList<Student> students) {
-                        // Print to screen
-                        for (int i = 0; i < students.size(); i++) {
-                            tvcontent.setText(tvcontent.getText().toString() + students.get(i).toString() + "\n");
+                    public void OnDataReceiver(ArrayList<Book> books) {
+                        for (int i = 0; i < books.size(); i++) {
+                            tvcontent.setText(tvcontent.getText().toString()
+                                    + books.get(i).toString() + "\n");
                         }
                     }
                 });

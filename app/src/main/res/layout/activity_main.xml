@@ -1,21 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F5F9">
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main" android:layout_width="match_parent" android:layout_height="match_parent">
-    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" app:layout_constraintBottom_toTopOf="@id/bottomlayout" app:layout_constraintTop_toTopOf="parent">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="40sp" android:gravity="center">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20sp" android:textDirection="rtl" android:id="@+id/tvcontent"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomlayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="📚"
+                android:textSize="48sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="הספרייה שלי"
+                android:textColor="#243B53"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="כל הספרים במקום אחד"
+                android:textColor="#627D98"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="הספרים שלי"
+                android:textColor="#243B53"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/tvcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:background="#FFFFFF"
+                android:textColor="#334E68"
+                android:textSize="16sp"
+                android:textDirection="rtl"
+                android:gravity="right" />
+
         </LinearLayout>
     </ScrollView>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/bottomlayout" android:orientation="vertical" android:gravity="center" app:layout_constraintBottom_toBottomOf="parent">
-        <EditText android:layout_width="300dp" android:layout_height="wrap_content" android:id="@+id/tz" android:gravity="center" android:hint="תעודת זהות"/>
-        <EditText android:layout_width="300dp" android:layout_height="wrap_content" android:id="@+id/fullname" android:gravity="center" android:hint="שם מלא"/>
-        <EditText android:layout_width="300dp" android:layout_height="wrap_content" android:id="@+id/grade" android:gravity="center" android:hint="ציון סופי"/>
-        
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-            <Button android:id="@+id/btnInsert" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="הוסף תלמיד"/>
-            <Button android:id="@+id/btnSelect" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="הצג תלמידים"/>
-            <Button android:id="@+id/btnUpdate" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="עדכן תלמיד"/>
-            <Button android:id="@+id/btnDelete" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="מחק תלמיד"/>
+
+    <LinearLayout
+        android:id="@+id/bottomlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="הוספת ספר חדש"
+            android:textColor="#243B53"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:gravity="right"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/bookName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            android:padding="10dp"
+            android:backgroundTint="#486581"
+            android:gravity="right|center_vertical"
+            android:hint="שם הספר"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            android:padding="10dp"
+            android:backgroundTint="#486581"
+            android:gravity="right|center_vertical"
+            android:hint="שם הסופר"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/dateAdded"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            android:padding="10dp"
+            android:backgroundTint="#486581"
+            android:gravity="right|center_vertical"
+            android:hint="תאריך הוספה (למשל 18/10/2026)"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnInsert"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:text="הוסף ספר"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#243B53" />
+
+            <Button
+                android:id="@+id/btnSelect"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:text="הצג ספרים"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#486581" />
+
         </LinearLayout>
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
