@@ -1,20 +1,30 @@
-
 package com.katza.adamproject20277;
 
+import com.google.firebase.firestore.DocumentId;
+
 public class Book {
+    @DocumentId
+    private String id;
     private String bookName;
     private String author;
     private String dateAdded;
 
-    // בנאי ריק (חובה עבור Firebase)
     public Book() {
     }
 
-    // בנאי מלא
-    public Book(String bookName, String author, String dateAdded) {
+    public Book(String id, String bookName, String author, String dateAdded) {
+        this.id = id;
         this.bookName = bookName;
         this.author = author;
         this.dateAdded = dateAdded;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getBookName() {
@@ -43,10 +53,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "bookName='" + bookName + '\'' +
-                ", author='" + author + '\'' +
-                ", dateAdded='" + dateAdded + '\'' +
-                '}';
+        return "ID: " + id + " | ספר: " + bookName + " | מחבר: " + author + " | תאריך: " + dateAdded;
     }
 }
