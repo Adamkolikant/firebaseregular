@@ -1,9 +1,7 @@
 package com.katza.adamproject20277;
 
-import com.google.firebase.firestore.DocumentId;
-
 public class Book {
-    @DocumentId
+    // הסרנו את @DocumentId מכאן כדי שלא תהיה התנגשות עם שדה ה-id שמגיע מהמסמך
     private String id;
     private String bookName;
     private String author;

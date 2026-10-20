@@ -34,7 +34,7 @@ public class FirestoreDAO {
 
         DocumentReference docRef = FirebaseFirestore.getInstance()
                 .collection(COLLECTION_NAME)
-                .document();
+                .document(author);
 
         docRef.set(bookRecord).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -99,7 +99,7 @@ public class FirestoreDAO {
         });
     }
 
-    public void updateDocument(String documentID, String newBookName) {
+    public void updateDocument(String documentID, String newBookName ,String newDateAdded) {
         if (documentID == null || documentID.trim().isEmpty()) {
             Log.d("DAO_FIREBASE", "UPDATE FAILED: Document ID is empty!");
             return;
@@ -108,7 +108,7 @@ public class FirestoreDAO {
         DocumentReference docRef = FirebaseFirestore.getInstance()
                 .collection(COLLECTION_NAME).document(documentID);
 
-        docRef.update("bookName", newBookName).addOnSuccessListener(new OnSuccessListener<Void>() {
+        docRef.update("bookName", newBookName, "dateAdded", newDateAdded).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("DAO_FIREBASE", "SUCCESSFUL UPDATE! ID: " + documentID);
@@ -121,21 +121,44 @@ public class FirestoreDAO {
         });
     }
 
-    public void deleteDocument(String documentID) {
-        DocumentReference docRef = FirebaseFirestore.getInstance()
-                .collection(COLLECTION_NAME).document(documentID);
+    public void deleteDocumentByAllFields(String bookName, String authorName, String dateAdded) {
+        CollectionReference colRef = FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
 
-        docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d("DAO_FIREBASE", "SUCCESSFUL DELETE!");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("DAO_FIREBASE", e.getMessage());
-            }
-        });
+        colRef.whereEqualTo("bookName", bookName)
+                .whereEqualTo("author", authorName)
+                .whereEqualTo("dateAdded", dateAdded)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            Log.d("DAO_FIREBASE", "No matching document found with all these fields.");
+                            return;
+                        }
+
+                        for (DocumentSnapshot docSS : queryDocumentSnapshots.getDocuments()) {
+                            docSS.getReference().delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d("DAO_FIREBASE", "SUCCESSFUL DELETE by all fields! ID: " + docSS.getId());
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) { // <-- תוקן כאן
+                                            Log.d("DAO_FIREBASE", "Delete failed: " + e.getMessage());
+                                        }
+                                    });
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DAO_FIREBASE", "Query failed: " + e.getMessage());
+                    }
+                });
     }
 
     public void listenToADocumentChange(String docID) {

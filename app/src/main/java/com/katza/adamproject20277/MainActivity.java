@@ -90,23 +90,26 @@ public class MainActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // כאן מעבירים בפרמטר הראשון את ה-ID של המסמך שרוצים לעדכן,
-                // ובפרמטר השני את הערך החדש (למשל מה שכתוב בתיבת bookName).
-                // ודא שאתה מכניס את ה-ID הנכון של המסמך (למשל לתוך תיבת author לצורך הבדיקה או שתשמור אותו מראש).
                 String documentId = author.getText().toString().trim();
                 String newName = bookName.getText().toString().trim();
+                String newDateadded = dateAdded.getText().toString().trim();
 
-                fsDAO.updateDocument(documentId, newName);
+                fsDAO.updateDocument(documentId, newName, newDateadded);
             }
         });
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fsDAO.deleteDocument(author.getText().toString().trim());
+                String name = bookName.getText().toString().trim();
+                String aut = author.getText().toString().trim();
+                String date = dateAdded.getText().toString().trim();
+
+                // שולח את כל השדות לבדיקה ומחיקה
+                fsDAO.deleteDocumentByAllFields(name, aut, date);
             }
         });
-    }
+    } // <-- סגירה נכונה של onCreate
 
     @Override
     protected void onStart() {
