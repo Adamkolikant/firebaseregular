@@ -126,10 +126,50 @@
             android:inputType="text"
             android:singleLine="true" />
 
+        <!-- תצוגה מקדימה לתמונה המצולמת -->
+        <ImageView
+            android:id="@+id/imgPreview"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerInside"
+            android:contentDescription="תצוגת תמונה"
+            android:visibility="gone" />
+
+        <!-- כפתורי צילום ושמירת תמונה -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnTakePhoto"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="צלם תמונה"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#486581" />
+
+            <Button
+                android:id="@+id/btnSavePhoto"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="שמור תמונה"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#334E68" />
+
+        </LinearLayout>
+
+        <!-- כפתורי פעולות (הוסף, עדכן, מחק, הצג) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <Button
