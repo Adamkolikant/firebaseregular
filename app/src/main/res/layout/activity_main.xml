@@ -110,7 +110,7 @@
             android:padding="10dp"
             android:backgroundTint="#486581"
             android:gravity="right|center_vertical"
-            android:hint="שם הסופר / מזהה (ID)"
+            android:hint="שם הסופר"
             android:inputType="text"
             android:singleLine="true" />
 
@@ -126,7 +126,7 @@
             android:inputType="text"
             android:singleLine="true" />
 
-        <!-- תצוגה מקדימה לתמונה המצולמת -->
+        <!-- תצוגה מקדימה לתמונה -->
         <ImageView
             android:id="@+id/imgPreview"
             android:layout_width="match_parent"
@@ -136,7 +136,7 @@
             android:contentDescription="תצוגת תמונה"
             android:visibility="gone" />
 
-        <!-- כפתורי צילום ושמירת תמונה -->
+        <!-- כפתורי צילום, גלריה ושמירת תמונה -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,8 +148,19 @@
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="4dp"
-                android:text="צלם תמונה"
+                android:layout_marginEnd="2dp"
+                android:text="צלם"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#486581" />
+
+            <Button
+                android:id="@+id/btnSelectGallery"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:text="מהגלריה"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#486581" />
 
@@ -158,8 +169,8 @@
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1"
-                android:layout_marginStart="4dp"
-                android:text="שמור תמונה"
+                android:layout_marginStart="2dp"
+                android:text="שמור"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#334E68" />
 

@@ -34,7 +34,7 @@ public class FirestoreDAO {
 
         DocumentReference docRef = FirebaseFirestore.getInstance()
                 .collection(COLLECTION_NAME)
-                .document(author);
+                .document(bookName);
 
         docRef.set(bookRecord).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -99,7 +99,7 @@ public class FirestoreDAO {
         });
     }
 
-    public void updateDocument(String documentID, String newBookName ,String newDateAdded) {
+    public void updateDocument(String documentID, String newAuthor, String newDateAdded) {
         if (documentID == null || documentID.trim().isEmpty()) {
             Log.d("DAO_FIREBASE", "UPDATE FAILED: Document ID is empty!");
             return;
@@ -108,7 +108,7 @@ public class FirestoreDAO {
         DocumentReference docRef = FirebaseFirestore.getInstance()
                 .collection(COLLECTION_NAME).document(documentID);
 
-        docRef.update("bookName", newBookName, "dateAdded", newDateAdded).addOnSuccessListener(new OnSuccessListener<Void>() {
+        docRef.update("author", newAuthor, "dateAdded", newDateAdded).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("DAO_FIREBASE", "SUCCESSFUL UPDATE! ID: " + documentID);
@@ -146,7 +146,7 @@ public class FirestoreDAO {
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
-                                        public void onFailure(@NonNull Exception e) { // <-- תוקן כאן
+                                        public void onFailure(@NonNull Exception e) {
                                             Log.d("DAO_FIREBASE", "Delete failed: " + e.getMessage());
                                         }
                                     });
@@ -206,11 +206,11 @@ public class FirestoreDAO {
         }
     }
 
-    public void readQueryDocuments(String authorName, IFirestoreCallback iFirestoreCallback) {
+    public void readQueryDocuments(String searchBookName, IFirestoreCallback iFirestoreCallback) {
         CollectionReference colRef = FirebaseFirestore.getInstance()
                 .collection(COLLECTION_NAME);
 
-        colRef.whereEqualTo("author", authorName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        colRef.whereEqualTo("bookName", searchBookName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 ArrayList<Book> books = new ArrayList<>();

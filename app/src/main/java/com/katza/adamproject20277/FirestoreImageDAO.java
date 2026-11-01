@@ -14,9 +14,10 @@ import java.util.Map;
 public class FirestoreImageDAO {
     private static final String COLLECTION_NAME = "base64_images";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public void saveToFirestore(String fileName, String base64, IFirestoreImageCallback callback) {
         if (fileName == null || fileName.trim().isEmpty() || base64 == null || base64.isEmpty()) {
-            callback.onFailure(new IllegalArgumentException("שם קובץ או נתוני תמונה חסרים"));
+            callback.onFailure(new IllegalArgumentException("שם קובץ או נתונים ריקים"));
             return;
         }
         Map<String, Object> image = new HashMap<>();
@@ -24,6 +25,7 @@ public class FirestoreImageDAO {
         image.put("encoding", "BASE64");
         image.put("data", base64);
         image.put("updatedAt", FieldValue.serverTimestamp());
+
         db.collection(COLLECTION_NAME).document(fileName).set(image)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -38,9 +40,10 @@ public class FirestoreImageDAO {
                     }
                 });
     }
+
     public void readFromFirestore(String fileName, IFirestoreImageCallback callback) {
         if (fileName == null || fileName.trim().isEmpty()) {
-            callback.onFailure(new IllegalArgumentException("שם הקובץ חסר"));
+            callback.onFailure(new IllegalArgumentException("שם קובץ ריק"));
             return;
         }
         db.collection(COLLECTION_NAME).document(fileName).get()
@@ -48,17 +51,17 @@ public class FirestoreImageDAO {
                     @Override
                     public void onSuccess(DocumentSnapshot snapshot) {
                         if (!snapshot.exists()) {
-                            callback.onFailure(new IllegalArgumentException("לא נמצאה תמונה בשם " + fileName));
+                            callback.onFailure(new IllegalArgumentException("הקובץ לא נמצא: " + fileName));
                             return;
                         }
                         String encoding = snapshot.getString("encoding");
                         if (!"BASE64".equals(encoding)) {
-                            callback.onFailure(new IllegalArgumentException("התמונה אינה שמורה כ-Base64"));
+                            callback.onFailure(new IllegalArgumentException("קידוד שגוי מ-Base64"));
                             return;
                         }
                         String base64 = snapshot.getString("data");
                         if (base64 == null || base64.isEmpty()) {
-                            callback.onFailure(new IllegalArgumentException("נתוני התמונה חסרים ב-Firestore"));
+                            callback.onFailure(new IllegalArgumentException("הנתונים ריקים מ-Firestore"));
                             return;
                         }
                         callback.onSuccess(base64);
@@ -72,5 +75,3 @@ public class FirestoreImageDAO {
                 });
     }
 }
-
-
