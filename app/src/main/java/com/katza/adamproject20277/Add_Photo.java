@@ -47,6 +47,7 @@ public class Add_Photo extends AppCompatActivity {
             firestoreImageFileName = savedInstanceState.getString(
                     "firestoreImageFileName", "my_image");
         }
+        // שומר את המידע שהטלפון מסתובב
 
         firestoreImageDAO = new FirestoreImageDAO();
 
