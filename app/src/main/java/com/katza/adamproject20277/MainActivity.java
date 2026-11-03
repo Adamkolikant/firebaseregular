@@ -1,4 +1,3 @@
-
 package com.katza.adamproject20277;
 
 import android.content.Intent;
@@ -15,9 +14,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnAddBook, btnAddPhoto;
+    private Button btnAddBook, btnAddPhoto, btnLogout;
     private ImageView ivBase64Image;
 
     private FirestoreImageDAO firestoreImageDAO;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnAddBook = findViewById(R.id.btnAddBook);
         btnAddPhoto = findViewById(R.id.btnAddPhoto);
+        btnLogout = findViewById(R.id.btnLogout);
 
         readFromFirestore();
 
@@ -61,6 +63,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+
+        Intent intent = new Intent(this, AuthActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+        Toast.makeText(this, "התנתקת בהצלחה",
+                Toast.LENGTH_SHORT).show();
     }
 
     private void readFromFirestore() {

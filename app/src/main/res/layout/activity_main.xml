@@ -75,6 +75,15 @@
             android:textColor="#FFFFFF"
             android:backgroundTint="#486581" />
 
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:text="התנתק"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#829ab1" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
